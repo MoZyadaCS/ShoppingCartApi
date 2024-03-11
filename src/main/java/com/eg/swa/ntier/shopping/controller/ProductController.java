@@ -14,7 +14,7 @@ import com.eg.swa.ntier.shopping.service.ProductService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1")
 public class ProductController {
     private final ProductService productService;
 
@@ -22,8 +22,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping
-    public ResponseEntity<PageableResponseDto> getAllProducts(
+    @GetMapping("/products")
+    public ResponseEntity<PageableResponseDto<Product>> getAllProducts(
             @RequestParam(name = "page",required = false) int page,
             @RequestParam(name = "count", required = false) int count) {
         PageableResponseDto<Product> responseDto = productService.getAllProducts(page,count);
@@ -31,33 +31,33 @@ public class ProductController {
     }
 
     // need to have a function to search for product by name
-    @GetMapping("/search")
+    @GetMapping("products/search")
     public ResponseEntity<List<Product>> searchByName(@RequestParam (name = "name" , required = true) String name ){
         List<Product> products = productService.searchByName(name);
         return new ResponseEntity<>(products,HttpStatus.OK);
     }
     // need to get product by ID
-    @GetMapping("/{productId}")
+    @GetMapping("products/{productId}")
     public ResponseEntity<Product> getById(@PathVariable(value = "productId") Long productId){
         Product product = productService.getById(productId);
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
     // Need have a function to create product
-    @PostMapping
+    @PostMapping("admin/products")
     @ResponseStatus(HttpStatus.CREATED)
     public void createProduct(@RequestBody @Valid ProductDto productDto){
         productService.createProduct(productDto);
     }
 
     // Need have a function to update product
-    @PutMapping("{productId}")
+    @PutMapping("admin/products/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public void updateProduct(@PathVariable Long productId ,@RequestBody @Valid ProductDto productDto){
         productService.updateProduct(productId,productDto);
     }
     
    // Need have a function to delete product
-    @DeleteMapping("{productId}")
+    @DeleteMapping("admin/products{productId}")
     public void deleteProduct(@PathVariable Long productId){
         productService.deleteProduct(productId);
     }

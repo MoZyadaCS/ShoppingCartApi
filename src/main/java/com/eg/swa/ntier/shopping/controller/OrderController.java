@@ -18,7 +18,7 @@ import com.eg.swa.ntier.shopping.model.OrderItemDto;
 import com.eg.swa.ntier.shopping.service.OrderService;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/v1")
 public class OrderController {
     private final OrderService orderService;
 
@@ -26,17 +26,17 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping
+    @GetMapping("/admin/orders")
     public List<Order> getAllOrders() {
         return orderService.getAllOrders();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("admin/orders/{id}")
     public Order getOrderById(@PathVariable Long id) throws NotFoundException {
         return orderService.getOrderById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("orders/create")
     public ResponseEntity<Order> createOrder(@RequestBody List<OrderItemDto> orderItems, Long customerId) throws Exception {
     	
     	// Adding spring security to get customer [Logged in user]

@@ -14,14 +14,14 @@ import com.eg.swa.ntier.shopping.model.ShoppingCart;
 import com.eg.swa.ntier.shopping.service.ShoppingCartService;
 
 @RestController
-@RequestMapping("/api/shopping-cart")
+@RequestMapping("/api/v1")
 public class ShoppingCartController {
     
     @Autowired
     private ShoppingCartService shoppingCartService;
     
     
-    @PostMapping("/getOrCreateCart/{customerId}")
+    @PostMapping("shoppingCart/getOrCreateCart/{customerId}")
     public ShoppingCart getOrCreateCart(@PathVariable("customerId") Long customerId){
     	return shoppingCartService.getOrCreateCart(customerId);
     }
@@ -33,7 +33,7 @@ public class ShoppingCartController {
     // add a function to removeItemFromCart have the following signature removeItemFromCart(@PathVariable("customerId") Long customerId, @PathVariable("cartItemId") Long cartItemId) 
     
     
-    @PutMapping("/updateCartItem/{customerId}/{cartItemId}")
+    @PutMapping("shoppingCart/updateCartItem/{customerId}/{cartItemId}")
     public ResponseEntity<String> updateCartItem(@PathVariable("customerId") Long customerId, @PathVariable("cartItemId") Long cartItemId, 
                                                   @RequestBody ShoppingCartDto shoppingCartDto) throws Exception {
         shoppingCartDto.setId(cartItemId);

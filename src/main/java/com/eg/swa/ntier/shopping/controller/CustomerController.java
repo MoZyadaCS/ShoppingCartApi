@@ -5,12 +5,10 @@ import com.eg.swa.ntier.shopping.dto.CustomerDto;
 import com.eg.swa.ntier.shopping.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/api/customers/")
+@RestController
+@RequestMapping("/api/v1")
 public class CustomerController {
 
     @Autowired
@@ -21,7 +19,7 @@ public class CustomerController {
     }
 
 
-    @PostMapping
+    @PostMapping("/admin/customers")
     @ResponseStatus(HttpStatus.CREATED)
     public void createCustomerAccount(@RequestBody CustomerDto customerDto){
         customerService.createCustomer(customerDto);
