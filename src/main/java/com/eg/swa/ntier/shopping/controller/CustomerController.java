@@ -24,6 +24,6 @@ public class CustomerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createCustomerAccount(@RequestBody CustomerDto customerDto){
-        customerService.CreateCustomer(customerDto);
+        customerService.createCustomer(customerDto);
     }
 }
