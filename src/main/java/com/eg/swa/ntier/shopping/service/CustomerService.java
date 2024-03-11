@@ -27,7 +27,7 @@ public class CustomerService {
 		return customerRepository.findById(customerId);
 	}
 
-	public void CreateCustomer(CustomerDto customerDto){
+	public void createCustomer(CustomerDto customerDto){
 		Optional<Customer> optionalCustomer = customerRepository.findByEmail(customerDto.getEmail());
 		if(optionalCustomer.isPresent()){
 			throw new RuntimeException("Customer Has Account Associated With This Email");
