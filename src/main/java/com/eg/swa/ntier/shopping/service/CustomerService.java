@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.eg.swa.ntier.shopping.dto.CustomerDto;
 import com.eg.swa.ntier.shopping.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.eg.swa.ntier.shopping.model.Customer;
@@ -18,6 +19,9 @@ public class CustomerService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public Optional<Customer> getCustomerById(Long customerId) {
 		return customerRepository.findById(customerId);
@@ -32,7 +36,7 @@ public class CustomerService {
 		customer.setAddress(customerDto.getAddress());
 		customer.setName(customerDto.getName());
 		customer.setEmail(customerDto.getEmail());
-		customer.setPassword(customerDto.getPassword());
+		customer.setPassword(passwordEncoder.encode(customerDto.getPassword()));
 		customer.setRole(roleRepository.findByName("CUSTOMER").get());
 		customerRepository.save(customer);
 	}
